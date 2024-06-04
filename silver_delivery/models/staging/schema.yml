@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: stg_oa_users
+    columns:
+      - name: user_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_timesheets
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - user_id
+            - project_id
+            - timesheet_date
+    columns:
+      - name: user_id
+        data_tests:
+          - not_null
+      - name: project_id
+        data_tests:
+          - not_null
